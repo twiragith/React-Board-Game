@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Board from './Board';
 import Slider from './Slider';
 
@@ -24,37 +24,14 @@ const style2 = {
 
 function Game() {
 
-    const [count, setCount] = useState(0);
-    const [score, setScore] = useState(0);
     const [currentCell, setCurrentCell] = useState(1);
-    const [gameOver, setGameOver] = useState(false);
-    const [time, setTime] = useState(new Date().getMilliseconds());
-    const [board, setBoard] = useState(Array().fill('0'))
-
-
-function handleClick(){
-
-}
-
-function clock(){
-    setInterval(()=>setTime(new Date().getMilliseconds()),100);
-}
-
-function counter(){
-    setInterval(()=>setCount(count+1),100);
-    console.log("trigger");
-}
-
 
 function handleCount(){
-
     if(currentCell>9){
         setCurrentCell(1);
-        setGameOver(true);
     }else{
         setCurrentCell(currentCell + 1);
     }
-
 }
 
     return (
@@ -63,7 +40,7 @@ function handleCount(){
         <Slider label ={"Board game"} goClick= {currentCell}  />
         </div>
         <div>
-            <Board Cell={currentCell} Squares={board} onClick={handleClick} />
+            <Board Cell={currentCell} />
         </div>
         <div style ={style2}>
         <button onClick={handleCount}>

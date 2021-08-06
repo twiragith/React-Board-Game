@@ -1,10 +1,7 @@
 import React, {
-    Component,
     memo,
-    useCallback,
     useState,
     useEffect,
-    useMemo
   } from "react";
   
 
@@ -15,19 +12,9 @@ import React, {
       const [mouseState, setMouseState] = useState(null);
 
       const [seconds, setSeconds] = useState(0);
-      const [isActive, setIsActive] = useState(true);
+      let isActive = true;
 
       const [score, setScore] = useState(0);
-
-      function toggle() {
-        setIsActive(!isActive);
-      }
-    
-      function reset() {
-        setSeconds(0);
-        setScore(0)
-        setIsActive(false);
-      }
     
       useEffect(() => {
         let interval = null;
@@ -52,11 +39,12 @@ import React, {
       }, [seconds]);
 
       useEffect(() => {
-        setScore(score + seconds);
         if(goClick>9){
             alert("game over. Final Score is "+ score+".")
             console.log(goClick);
             setScore(0)
+        }else{
+            setScore(score + seconds);
         }
       }, [goClick]);
   
@@ -88,49 +76,10 @@ import React, {
             <div className="time">
                 {seconds}
             </div>
-            <div className="row">
-                <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
-                {isActive ? 'Pause' : 'Start'}
-                </button>
-                <button className="button" onClick={reset}>
-                Stop
-                </button>
-            </div>
         </div>
       );
     }
   );
   
-  // export default Slider;
-  
-     /*  const App = () => {
-        const [parentVal, setParentVal] = useState(10);
-  
-        const sliderValueChanged = useCallback(val => {
-          console.log("NEW VALUE", val);
-          setParentVal(val);
-        });
-  
-        const sliderProps = useMemo(
-          () => ({
-            min: 0,
-            max: 100,
-            value: parentVal,
-            step: 2,
-            label: "This is a reusable slider",
-            //onChange: e => sliderValueChanged(e)
-          }),
-          [parentVal]
-        );
-  
-        return (
-          <div>
-            <h1>PARENT VALUE: {parentVal}</h1>
-            <Slider {...sliderProps} classes="additional-css-classes" />
-          </div>
-        );
-      };
- */
-
 
 export default Slider;
