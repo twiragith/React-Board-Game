@@ -29,6 +29,7 @@ function Game() {
     const [currentCell, setCurrentCell] = useState(1);
     const [gameOver, setGameOver] = useState(false);
     const [time, setTime] = useState(new Date().getMilliseconds());
+    const [board, setBoard] = useState(Array().fill('0'))
 
 
 function handleClick(){
@@ -47,7 +48,7 @@ function counter(){
 
 function handleCount(){
 
-    if(currentCell>8){
+    if(currentCell>9){
         setCurrentCell(1);
         setGameOver(true);
     }else{
@@ -62,10 +63,9 @@ function handleCount(){
         <Slider label ={"Board game"} goClick= {currentCell}  />
         </div>
         <div>
-            <Board Square={currentCell} onClick={handleClick} />
+            <Board Cell={currentCell} Squares={board} onClick={handleClick} />
         </div>
         <div style ={style2}>
-        <p>You clicked {count} times</p>
         <button onClick={handleCount}>
             GO
         </button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Square1 from './Square';
 
@@ -29,24 +29,28 @@ const style3 = {
 	margin: "",
 };
 
-function Board({Square,onClick}) {
+function Board({Cell,Squares,onClick}) {
+
+    const [tempSquares, setTempSquares] = useState(Array().fill(null))
+    //console.log(Cell)
+    useEffect(() => {
+        setTempSquares(prevArray  => [...prevArray , Cell]);
+        console.log();
+        if(Cell>9){
+        setTempSquares(Array().fill(null));
+        }
+      }, [Cell]);
 
     return (
       <div >
         <div style ={style2}>
         </div>
-        <div style ={style3}><Square1 value={ Square}  onClick={() => onClick("dummy value")} /></div>
+        <div style ={style3}><Square1 value={ Cell-1}  onClick={() => onClick("dummy value")} /></div>
         <div style ={style3}><Square1 value="GO!" onClick={() => onClick("dummy value")} /></div>
         <div style ={style}>
-        <Square1 value="X" onClick={() => onClick("dummy value")} />
-        <Square1 value="2" onClick={() => onClick("dummy value")} />
-        <Square1 value="3" onClick={() => onClick("dummy value")} />
-        <Square1 value="6" onClick={() => onClick("dummy value")} />
-        <Square1 value="5" onClick={() => onClick("dummy value")} />
-        <Square1 value="4" onClick={() => onClick("dummy value")} />
-        <Square1 value="7" onClick={() => onClick("dummy value")} />
-        <Square1 value="8" onClick={() => onClick("dummy value")} />
-        <Square1 value="9" onClick={() => onClick("dummy value")} />
+        {tempSquares.map((tempSquares, i) => (
+			<Square1 key={i} value={i} onClick={() => onClick(i)} />
+		))}
         </div>
       </div>
     );

@@ -15,7 +15,7 @@ import React, {
       const [mouseState, setMouseState] = useState(null);
 
       const [seconds, setSeconds] = useState(0);
-      const [isActive, setIsActive] = useState(false);
+      const [isActive, setIsActive] = useState(true);
 
       const [score, setScore] = useState(0);
 
@@ -25,6 +25,7 @@ import React, {
     
       function reset() {
         setSeconds(0);
+        setScore(0)
         setIsActive(false);
       }
     
@@ -52,6 +53,11 @@ import React, {
 
       useEffect(() => {
         setScore(score + seconds);
+        if(goClick>9){
+            alert("game over. Final Score is "+ score+".")
+            console.log(goClick);
+            setScore(0)
+        }
       }, [goClick]);
   
       const changeCallback = e => {
@@ -63,7 +69,6 @@ import React, {
           //onChange(sliderVal);
         }
       }, [mouseState]);
-      console.log("RENDER");
       return (
         <div>
             <div className="range-slider">
@@ -81,7 +86,7 @@ import React, {
             />
             </div>
             <div className="time">
-                {seconds}s
+                {seconds}
             </div>
             <div className="row">
                 <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
